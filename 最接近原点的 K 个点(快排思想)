@@ -1,0 +1,38 @@
+class Solution {
+    public int[][] kClosest(int[][] points, int K) {
+        int[][] result = new int[K][2];
+        myfunc(points,0,points.length-1,K);
+        for(int i = 0;i<result.length;i++){
+            result[i] = points[i];
+        }
+        return result;
+
+    }
+    private void myfunc(int[][] points,int start,int end,int K){
+        int mid = points[start][0]*points[start][0]+ points[start][1]*points[start][1];
+        int p1 = start+1,p2 = end;
+        while(p1<=p2){
+            while(p1<=end&&compare(points[p1],mid)<=0){
+                p1++;
+            }
+            while(p2>=start+1&&compare(points[p2],mid)>=0){
+                p2--;
+            }
+            if(p1>=p2) break;
+            int[] t = points[p1];
+            points[p1] = points[p2];
+            points[p2] = t;
+        }
+        int[] t = points[p2];
+        points[p2] = points[start];
+        points[start] = t;
+        if(p2 == K||p2 == K-1) return;
+        if(p2<K)
+            myfunc(points,p2+1,end,K);
+        else
+            myfunc(points,start,p2-1,K);
+    }
+    private int compare(int[] arr1,int target){
+        return arr1[0]*arr1[0]+arr1[1]*arr1[1]-target;
+    }
+}
