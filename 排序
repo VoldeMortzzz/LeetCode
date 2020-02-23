@@ -62,3 +62,38 @@ class Solution {
             nums[start+i] = tmp[i];
     }
 }
+
+#堆排序
+class Solution {
+    public List<Integer> sortArray(int[] nums) {
+        for(int i = nums.length/2-1;i>=0;i--)
+            dive(nums,i,nums.length-1);
+        for(int i = nums.length-1;i>0;i--){
+            int t = nums[0];
+            nums[0] = nums[i];
+            nums[i] = t;
+            dive(nums,0,i-1); 
+        }
+        List<Integer> result = new ArrayList<>();
+        for(int i : nums)
+            result.add(i);
+        return result;
+    }
+    private void dive(int[] nums,int i,int tail){
+        int left = 2*i+1;
+        if(left>tail) return;
+        int right = 2*i+2;
+        int cur;
+        if(right>tail)
+            cur = left;
+        else if(nums[left]>nums[right])
+            cur = left;
+        else   
+            cur = right;
+        if(nums[i]>=nums[cur]) return;
+        int t = nums[cur];
+        nums[cur] = nums[i];
+        nums[i] = t;
+        dive(nums,cur,tail);
+    }
+}
