@@ -1,0 +1,30 @@
+#快排
+class Solution {
+    public List<Integer> sortArray(int[] nums) {
+        quiksort(nums,0,nums.length-1);
+        List<Integer> result = new ArrayList<>();
+        for(int i :nums)
+            result.add(i);
+        return result;
+    }
+    private void quiksort(int[] nums,int start,int end){
+        if(start>=end) return;
+        int mid = nums[start];
+        int p1 = start+1,p2 = end;
+        while(p1<=p2){
+            while(p1<=end&&nums[p1]<=mid)
+                p1++;
+            while(p2>=start+1&&nums[p2]>=mid)
+                p2--;
+            if(p1>=p2) break;
+            int t = nums[p1];
+            nums[p1] = nums[p2];
+            nums[p2] = t;
+        }
+        int t = nums[start];
+        nums[start] = nums[p2];
+        nums[p2] = t;
+        quiksort(nums,start,p2-1);
+        quiksort(nums,p2+1,end);
+    }
+}
