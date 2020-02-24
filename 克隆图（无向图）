@@ -1,0 +1,21 @@
+#层次遍历
+class Solution {
+    public Node cloneGraph(Node node) {
+        if(node == null) return null;
+        HashMap<Node,Node> hm = new HashMap<>();
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.offer(node);
+        hm.put(node,new Node(node.val,new ArrayList<Node>()));
+        while(!queue.isEmpty()){
+            Node curnode = queue.poll();
+            for(Node n : curnode.neighbors){
+                if(!hm.containsKey(n)){
+                    hm.put(n,new Node(n.val,new ArrayList<Node>()));
+                    queue.offer(n);
+                }
+                hm.get(curnode).neighbors.add(hm.get(n));
+            }
+        }
+        return hm.get(node);
+    }
+}
