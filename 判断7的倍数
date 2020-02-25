@@ -1,1 +1,27 @@
+#判断n是否是数a的倍数，则可以考虑递归的砍掉n中确定了的a的倍数，在判断剩下的，通过位运算（2，4，8）为依据效率比较高
+import java.lang.*; 
+import java.util.*; 
 
+class Test { 
+	static int isMultipleOf7(int n) 
+	{ 
+	    if(n<0) n = -n;
+	    if(n<8) return n == 7?1:0;
+	    int result = 0;
+	    while(n!=0){
+	        result += n&7;
+	        n = n>>3;
+	    }
+	    return isMultipleOf7(result);
+	} 
+
+	public static void main(String[] args) 
+	{ 
+	   	int num = 21; 
+
+		if (isMultipleOf7(num) != 0) 
+			System.out.println(num + " is multiple of 7"); 
+		else
+			System.out.println(num + " is not a multiple of 7"); 
+	} 
+} 
