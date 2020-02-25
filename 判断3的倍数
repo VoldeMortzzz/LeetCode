@@ -32,7 +32,7 @@ class GFG {
 	} 
 } 
 
-# == 各10进制位数之和是否为3的倍数
+# == 各10进制位数之和是否为3的倍数（该方法仅限于3，其他数字不行）
 import java.lang.*; 
 import java.util.*; 
 
