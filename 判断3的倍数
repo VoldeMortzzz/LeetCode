@@ -9,23 +9,23 @@ class GFG {
 	// is a multiple of 3 
 	static int isMultipleOf3(int n) 
 	{ 
-    if(n<0) n = -n;
-    if(n == 0) return 1;
-    if(n == 1) return 0;
-    int oddnum = 0,evennum = 0;
-    while(n!=0){
-        if((n&1) == 1) oddnum++;
-        n = n>>1;
-        if((n&1) == 1) evennum++;
-        n = n>>1;
-    }
-    return isMultipleOf3(oddnum-evennum);
+	    if(n<0) n = -n;
+	    if(n == 0) return 1;
+	    if(n == 1) return 0;
+	    int oddnum = 0,evennum = 0;
+	    while(n!=0){
+		if((n&1) == 1) oddnum++;
+		n = n>>1;
+		if((n&1) == 1) evennum++;
+		n = n>>1;
+	    }
+	    return isMultipleOf3(oddnum-evennum);
 	} 
 
 	/* Program to test function isMultipleOf3 */
 	public static void main(String[] args) 
 	{ 
-	  int num = 24; 
+	   	int num = 24; 
 
 		if (isMultipleOf3(num) != 0) 
 			System.out.println(num + " is multiple of 3"); 
@@ -43,18 +43,18 @@ class GFG {
 	// is a multiple of 3 
 	static int isMultipleOf3(int n) 
 	{ 
-    if(n < 10){
-      if(n == 3||n == 6||n==9)
-        return 1;
-      else
-        return 0;
-    }
-		int locsum = 0;
-    while(n!=0){
-      locsum += n%10;
-        n /= 10; 
-    }
-    return isMultipleOf3(locsum);
+	    if(n < 10){
+	      if(n == 3||n == 6||n==9)
+		return 1;
+	      else
+		return 0;
+	    }
+			int locsum = 0;
+	    while(n!=0){
+	      locsum += n%10;
+		n /= 10; 
+	    }
+	    return isMultipleOf3(locsum);
 	} 
 
 	/* Program to test function isMultipleOf3 */
