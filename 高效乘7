@@ -1,0 +1,16 @@
+#位运算
+class GFG { 
+      
+    static int multiplyBySeven(int n) 
+    {  
+        return ((n << 3) - n); 
+    } 
+      
+    // Driver code 
+    public static void main (String arg[])  
+    { 
+        int n = 4; 
+          
+        System.out.println(multiplyBySeven(n)); 
+    } 
+} 
