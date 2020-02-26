@@ -1,0 +1,28 @@
+#自顶向下，递归
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        if(amount<0) return -1;
+        int[] dp = new int[amount+1];
+        return myfunc(coins,amount,dp);
+    }
+    private int myfunc(int[] coins,int amount,int[] dp){
+        if(amount<0) return -1;
+        if(amount == 0) return 0;
+        if(dp[amount]!=0) return dp[amount];
+
+        int min = Integer.MAX_VALUE;
+        for(int i:coins){
+            int val = myfunc(coins,amount-i,dp);
+            if(val != -1 && val<min)
+                min = val;
+        }
+        if(min == Integer.MAX_VALUE)
+            dp[amount] = -1;
+        else
+            dp[amount] = min+1;
+        return dp[amount];
+    }
+}
+
+#自底向上，迭代
+....
