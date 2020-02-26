@@ -1,0 +1,25 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+        int lastmin = nums[0];
+        int lastmax = nums[0];
+        int n,t,result = lastmax;
+        for(int i = 1;i<nums.length;i++){
+            n = nums[i];
+            if(n>0){
+                lastmax = lastmax>0?lastmax*n:n;
+                lastmin = lastmin<0?lastmin*n:n;
+            }else if(n<0){
+                t = lastmin<0?lastmin*n:n;
+                lastmin = lastmax>0?lastmax*n:n;
+                lastmax = t;
+            }else{
+                lastmax = 0;
+                lastmin = 0;
+            }
+            if(lastmax>result)
+                result = lastmax;
+        }
+        return result;
+
+    }
+}
