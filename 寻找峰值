@@ -1,0 +1,14 @@
+#二分查找
+class Solution {
+    public int findPeakElement(int[] nums) {
+        return myfunc(nums,0,nums.length-1);
+    }
+    private int myfunc(int[] nums,int start,int end){
+        if(start>=end) return start;
+        int mid = (start+end)/2;
+        if(nums[mid]>nums[mid+1])
+            return myfunc(nums,start,mid);
+        else
+            return myfunc(nums,mid+1,end);
+    }
+}
