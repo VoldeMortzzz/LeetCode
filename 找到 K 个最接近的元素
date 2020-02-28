@@ -1,0 +1,41 @@
+#二分查找中间数，向两侧扩展
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        List<Integer> result = new ArrayList<>();
+        if(arr.length<k) return result;
+        int mid = myfunc(arr,x,0,arr.length-1);
+        int p1 = mid-1,p2 = mid+1;
+        int count = 1;
+        while(count<k){
+            if(p2>=arr.length){
+                p1--;
+                count++;
+                continue;
+            }
+            if(p1<0){
+                p2++;
+                count++;
+                continue;
+            }
+            if(Math.abs(arr[p1]-x)<=Math.abs(arr[p2]-x)){
+                p1--;
+            }else{
+                p2++;
+            }
+            count++;
+        }
+        for(int i = p1+1;i<p2;i++)
+            result.add(arr[i]);
+        return result;
+        
+    }
+    private int myfunc(int[] arr,int x,int start,int end){
+        if(start == end) return start;
+        if(start+1 == end) return Math.abs(arr[start]-x)<Math.abs(arr[end]-x)?start:end;
+        int mid = (start+end)/2;
+        if(arr[mid]<=x)
+            return myfunc(arr,x,mid,end);
+        else
+            return myfunc(arr,x,start,mid);
+    }
+}
