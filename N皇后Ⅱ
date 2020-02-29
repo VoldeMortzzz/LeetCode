@@ -1,0 +1,30 @@
+#回溯
+class Solution {
+    int[] cols,ang1,ang2;
+    int result;
+    public int totalNQueens(int n) {
+        cols = new int[n];
+        ang1 = new int[2*n-1];
+        ang2 = new int[2*n-1];
+        result = 0;
+        myfunc(n,0);
+        return result;
+    }
+    private void myfunc(int n,int row){
+        if(row>=n){
+            result++;
+            return;
+        }
+        for(int i = 0;i<n;i++){
+            if(cols[i] == 0&&ang1[row-i+n-1] == 0&&ang2[row+i] == 0){
+                cols[i] = 1;
+                ang1[row-i+n-1] =1;
+                ang2[row+i] = 1;
+                myfunc(n,row+1);
+                cols[i] = 0;
+                ang1[row-i+n-1] = 0;
+                ang2[row+i] = 0;
+            }
+        }
+    }
+}
