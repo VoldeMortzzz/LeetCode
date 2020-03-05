@@ -1,0 +1,55 @@
+#时间复杂度O(n+k),k是待排序数组的range，
+#比较适合n与k同量级的即待排序数组取值比较紧凑的情况，
+#注意对负数计数索引时索引非负要平移
+
+class Test 
+{ 
+	static void countSort(int arr[]) 
+	{ 
+		int[] out = new int[arr.length];
+		int Min = Character.MAX_VALUE;
+		int Max = Character.MIN_VALUE;
+		for(int i = 0;i<arr.length;i++){
+			if(arr[i]<Min)
+				Min = arr[i];
+			if(arr[i]>Max)
+				Max = arr[i];
+		}
+		int range = Max-Min+1;
+		int[] counts = new int[range];
+		
+		for(int i = 0;i<arr.length;i++){
+			counts[arr[i]-Min]++;
+		}
+		
+		int count = 0;
+		for(int i = 0;i<range;i++){
+			count += counts[i];
+			counts[i] = count;
+		}
+		for(int i = 0;i<arr.length;i++){
+			out[counts[arr[i]-Min]-1] = arr[i];
+			counts[arr[i]-Min]--;
+		}
+		for(int i = 0;i<arr.length;i++){
+			arr[i] = out[i];
+		}
+	} 
+
+	static void printArray(int[] arr)  
+    { 
+        for (int i = 0; i < arr.length; i++)  
+        { 
+            System.out.print(arr[i] + " "); 
+        } 
+        System.out.println(""); 
+    } 
+  
+    // Driver code 
+    public static void main(String[] args) 
+    { 
+        int[] arr = {-5, -10, 0, -3, 8, 5, -1, 10}; 
+        countSort(arr); 
+        printArray(arr); 
+    } 
+} 
