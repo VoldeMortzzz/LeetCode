@@ -1,0 +1,28 @@
+class Solution {
+    public int maximalSquare(char[][] matrix) {
+        if(matrix == null||matrix.length == 0) return 0;
+        if(matrix[0].length == 0) return 0;
+        int row = matrix.length,col = matrix[0].length;
+        int[] dp = new int[col+1];
+        int result = 0;
+        for(int i = 0;i < row;i++){
+            int lastval = 0;
+            for(int j = 0;j<col;j++){
+                int curval;
+                if(matrix[i][j] == '0'){
+                    curval = 0;
+                }else{
+                    curval = lastval<dp[j+1]?lastval:dp[j+1];
+                    curval = curval<dp[j]?curval:dp[j];
+                    curval += 1;
+                }
+                dp[j] = lastval;
+                lastval = curval;
+                if(curval>result)
+                    result = curval;
+            }
+            dp[col] = lastval;
+        }
+        return result*result;
+    }
+}
