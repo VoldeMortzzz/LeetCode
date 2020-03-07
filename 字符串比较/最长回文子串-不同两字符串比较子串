@@ -1,0 +1,25 @@
+#翻转字符串递推求最大公共子串，动态规划，全遍历但避免了比较子串时的重复计算;第二层倒着遍历节省dp空间
+class Solution {
+    public String longestPalindrome(String s) {
+        if(s == null || s.length() == 0) return "";
+        StringBuffer sb = new StringBuffer(s);
+        sb = sb.reverse();
+        char[] chars1 = s.toCharArray();
+        char[] chars2 = sb.toString().toCharArray();
+        int max = 0,ind = 0;
+        int[] dp = new int[chars1.length+1];
+        for(int i = 1;i<=chars1.length;i++){
+            for(int j = chars2.length;j>=1;j--){
+                if(chars1[i-1] == chars2[j-1]){
+                    dp[j] = dp[j-1]+1;
+                    if(dp[j]>max && i+j == s.length()+dp[j]){
+                        max= dp[j];
+                        ind = i;
+                    }
+                }else
+                    dp[j] = 0;
+            }
+        }
+        return s.substring(ind-max,ind);
+    }
+}
