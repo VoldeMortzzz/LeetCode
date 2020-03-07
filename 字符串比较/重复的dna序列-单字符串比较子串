@@ -1,0 +1,15 @@
+#直接采用hashmap的方法，类似于数组查找重复元素，不必使用动态规划
+class Solution {
+    public List<String> findRepeatedDnaSequences(String s) {
+        List<String> result = new ArrayList<>();
+        HashSet<String> hs = new HashSet<>();
+        for(int i = 0;i<s.length()-9;i++){
+            String cur = s.substring(i,i+10);
+            if(!hs.contains(cur)){
+                hs.add(cur);
+            }else if(!result.contains(cur))
+                result.add(cur);
+        }
+        return result;
+    }
+}
