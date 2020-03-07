@@ -1,0 +1,54 @@
+#两字符串，其中一个固定，故而无法使用dp，dp是为了避免相同位置的字符重复比较而不在意该位置的元素是什么，
+#这里不存在位置重复比较，关注比较过的内容，减少对相同内容的重复比较进行优化
+import java.util.*;
+import java.io.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        String match = sc.nextLine();
+        KMP k = new KMP();
+        List<Integer> result = k.kmp(str,match);
+        //return result;
+        for(int i : result){
+            System.out.print(i);
+            System.out.print(" ");
+        }
+    }
+}
+class KMP{
+    public List<Integer> kmp(String str,String match){
+        char[] matches = match.toCharArray();
+        char[] strs = str.toCharArray();
+        int[] next = getNext(matches);
+        List<Integer> result = new ArrayList<>();
+        int curmatch = 0;
+        int index = 0;
+        while(index<strs.length){
+            while(curmatch != -1 && strs[index] != matches[curmatch]){
+                curmatch = next[curmatch];
+            }
+            curmatch++;
+            if(curmatch == matches.length){
+                result.add(index-matches.length+1);
+                curmatch = next[curmatch-1];
+            }else
+                index++;
+        }
+        if(result.isEmpty())
+            result.add(-1);
+        return result;
+    }
+    private int[] getNext(char[] chars){
+        int[] next = new int[chars.length];
+        next[0] = -1;
+        for(int i = 1;i<chars.length;i++){
+            int k = i-1;
+            while(k != 0 && chars[i-1] != chars[next[k]]){
+                k = next[k];
+            }
+            next[i] = next[k]+1;
+        }
+        return next;
+    }
+}
