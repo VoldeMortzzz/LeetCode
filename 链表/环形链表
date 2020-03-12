@@ -1,3 +1,17 @@
+#hash表
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        HashSet<ListNode> hs = new HashSet<>();
+        while(!hs.contains(head)){
+            if(head == null) return null;
+            hs.add(head);
+            head = head.next;
+        }
+        return head;
+    }
+}
+
+#双指针
 public class Solution {
     public ListNode detectCycle(ListNode head) {
         if(head == null||head.next == null) return null;
