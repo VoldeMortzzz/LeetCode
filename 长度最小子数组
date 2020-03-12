@@ -1,0 +1,48 @@
+#二分查找,O(nlgn)
+class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        if(nums == null||nums.length == 0) return 0;
+        int[] sums = new int[nums.length];
+        sums[0] = nums[0];
+        for(int i = 1;i<nums.length;i++){
+            sums[i] = sums[i-1]+nums[i];
+        }
+        int len = Integer.MAX_VALUE;
+        for(int i = 0;i<nums.length;i++){
+            if(sums[i]<s)
+                continue;
+            int ind = binaryfunc(0,i,sums,s,sums[i]);
+            if(i-ind+1<len)
+                len = i-ind+1;
+        }
+        if(len == Integer.MAX_VALUE) return 0;
+        return len;
+    }
+    private int binaryfunc(int start,int end,int[] sums,int s,int sum){
+        if(start==end) return start;
+        int mid = (start+end)/2;
+        if(sum-sums[mid]>=s)
+            return binaryfunc(mid+1,end,sums,s,sum);
+        else
+            return binaryfunc(start,mid,sums,s,sum);
+    }
+}
+
+#双指针 O(n)
+class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        int p1 = 0;
+        int sum = 0;
+        int len = Integer.MAX_VALUE;
+        for(int i = 0;i<nums.length;i++){
+            sum += nums[i];
+            while(sum>=s){
+                if(i-p1+1<len)
+                    len = i-p1+1;
+                sum -= nums[p1++];
+            }
+        }
+        if(len == Integer.MAX_VALUE) return 0;
+        return len;
+    }
+}
