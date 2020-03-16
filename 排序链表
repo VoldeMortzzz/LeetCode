@@ -11,7 +11,7 @@ class Solution {
         return myfunc(head,num);
 
     }
-    private ListNode myfunc(ListNode head,int num){
+    private ListNode myfunc(ListNode head,int num){#不在使用索引而是把链表拆开
         if(num == 1){
             head.next = null;
             return head;
