@@ -1,4 +1,4 @@
-#快排
+#快排-递归
 class Solution {
     public List<Integer> sortArray(int[] nums) {
         quiksort(nums,0,nums.length-1);
@@ -28,6 +28,56 @@ class Solution {
         quiksort(nums,p2+1,end);
     }
 }
+
+#快排-非递归
+class Solution {
+    public List<Integer> sortArray(int[] nums) {
+        List<Integer> result = new ArrayList<>();
+        if(nums == null||nums.length == 0) return result;
+        mysort(nums,0,nums.length-1);
+        for(int i:nums)
+            result.add(i);
+        return result;
+    }
+    private void mysort(int[] nums,int start,int end){
+        Stack<Integer> stack = new Stack<>();
+        if(start<end){
+            stack.push(start);
+            stack.push(end);
+            while(!stack.isEmpty()){
+                end = stack.pop();
+                start = stack.pop();
+                int mid = myfunc(nums,start,end);
+                if(start<mid-1){
+                    stack.push(start);
+                    stack.push(mid-1);
+                }
+                if(end>mid+1){
+                    stack.push(mid+1);
+                    stack.push(end);
+                }
+            }
+        }
+    }
+    private int myfunc(int[] nums,int start,int end){
+        int mid = nums[start];
+        int p1 = start+1,p2 = end;
+        while(p1<=p2){
+            while(p1<=end&&nums[p1]<=mid)
+                p1++;
+            while(p2>start&&nums[p2]>=mid)
+                p2--;
+            if(p1>=p2) break;
+            int t = nums[p1];
+            nums[p1] = nums[p2];
+            nums[p2] = t;
+        }
+        nums[start] = nums[p2];
+        nums[p2] = mid;
+        return p2;
+    }
+}
+
 
 #归并排序
 class Solution {
