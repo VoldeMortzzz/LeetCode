@@ -1,3 +1,4 @@
+#二维dp
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
         char[] chars1 = text1.toCharArray();
@@ -15,5 +16,29 @@ class Solution {
         }
         return dp[chars1.length][chars2.length];
 
+    }
+}
+
+#一维dp
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        char[] chars1 = text1.toCharArray();
+        char[] chars2 = text2.toCharArray();
+        int[] dp = new int[text2.length()+1];
+        int last = 0,nextlast = 0;;
+        for(int i = 1;i<=text1.length();i++){
+            last = 0;
+            for(int j = 1;j<=text2.length();j++){
+                nextlast = dp[j];
+                if(chars1[i-1] == chars2[j-1])
+                    dp[j] = last + 1;
+                else{
+                    int m = Math.max(dp[j],dp[j-1]);
+                    dp[j] = Math.max(m,last);
+                }
+                last = nextlast;
+            }
+        }
+        return dp[chars2.length];
     }
 }
